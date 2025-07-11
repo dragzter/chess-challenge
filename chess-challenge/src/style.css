@@ -47,6 +47,13 @@
 			display: block !important;
 		}
 	}
+	
+	&.selected {
+		.hover-border {
+			display: block !important;
+			border-color: yellow;
+		}
+	}
 }
 
 .piece {
