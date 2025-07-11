@@ -8,3 +8,14 @@ export interface ChessPiece {
 
 export type Rank = string[]
 export type File = number[]
+
+export interface PieceInfo {
+	piece: string;
+	friendly: boolean;
+	color: string
+}
+
+export interface FinalMoveList {
+	moves: string[]
+	capture_moves: string[]
+}

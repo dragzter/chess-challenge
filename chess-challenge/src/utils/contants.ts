@@ -1,7 +1,7 @@
 import type {ChessPiece} from "../store/types.ts";
 
 export const BoardFile = ["a", "b", "c", "d", "e", "f", "g", "h"]
-export const BoardRank = [1, 2, 3, 4, 5, 6, 7, 8]
+export const BoardRank = ["1", "2", "3", "4", "5", "6", "7", "8"]
 
 // These pieces were borrowed form chess.com strictly for this exercise and will be deleted
 // immediately after.

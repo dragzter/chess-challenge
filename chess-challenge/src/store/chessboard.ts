@@ -1,6 +1,6 @@
 import {defineStore} from "pinia"
 import {BoardFile, BoardRank, StartGamePieceState} from "../utils/contants.ts";
-import {pieceInfo} from "../utils/helpers.ts";
+import {movesByPiece, performableMoves, pieceInfo} from "../utils/helpers.ts";
 
 
 export const useChessBoardStore = defineStore("chessBoard", {
@@ -9,8 +9,10 @@ export const useChessBoardStore = defineStore("chessBoard", {
 		board: [],
 		occupiedSquares: [],
 		startingPositions: JSON.parse(JSON.stringify(StartGamePieceState)),
-		chessBoard: {} as Record<string, unknown>,
+		chessBoard: {} as Record<string, string | null>,
 		selectedSquare: "",
+		pawnsThatMovedAtLeastOnce: [],
+		selectedPieceLegalMoves: [] as string[]
 	}),
 	getters: {
 		isOccupiedSquare: (state) => {
@@ -27,9 +29,24 @@ export const useChessBoardStore = defineStore("chessBoard", {
 			}
 			
 		},
-		getLegalMoves(piece: string) {
-		
+		getLegalMoves(piece: string, currentPosition: string) {
+			if (!piece) return
+			const selectedPiece = pieceInfo("white", piece)
+			
+			if (selectedPiece.friendly) {
+				console.log("im friendly!")
+				const availableMoves = movesByPiece(selectedPiece.piece, currentPosition)
+				const legalMoves = performableMoves(availableMoves, this.chessBoard)
+				
+				console.log(legalMoves)
+				this.selectedPieceLegalMoves = legalMoves
+			}
+			
 		},
+		switchTurn() {
+			this.turn = this.turn === "white" ? "black" : "white"
+		},
+		
 		movePiece(from: string, to: string) {
 			if (!this.chessBoard[from]) return
 			
@@ -47,6 +64,8 @@ export const useChessBoardStore = defineStore("chessBoard", {
 				this.chessBoard[from] = null
 				this.chessBoard[to] = piece
 			}
+			
+			this.switchTurn()
 		}
 	}
 })
