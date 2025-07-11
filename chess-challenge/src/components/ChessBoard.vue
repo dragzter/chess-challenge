@@ -1,19 +1,18 @@
 <template>
-
     <div class="chessboard">
         <div :class="`d-flex rank rank-${rank}`" v-for="rank in [...BoardRank].reverse()" :key="rank">
             <div :class="{selected: store.selectedSquare === file + rank, 'legal-move':
             store.selectedPieceLegalMoves.includes(file + rank)}"
                  class="square text-start p-1 "
-                 v-for="file
-             in [...BoardFile]" :key="file"
+                 v-for="file in BoardFile" :key="file"
                  @click="handleClickSquare(file, rank, store.chessBoard[file + rank])">
                 <p class="lh-1 position-absolute">{{ file }} {{ rank }}</p>
                 <img v-if="store.chessBoard[file + rank]" :class="`img-fluid piece`"
                      :src="`img/${store.chessBoard[file + rank]}`"
                      alt="">
-                <div class="d-none hover-border position-absolute"></div>
-                <div class="d-none legal-move-indicator position-absolute"></div>
+
+                <selected-square-border/>
+                <legal-move-indicator/>
             </div>
         </div>
     </div>
@@ -24,6 +23,8 @@
 import {onMounted} from "vue";
 import {BoardFile, BoardRank} from "../utils/contants.ts";
 import {useChessBoardStore} from "../store/chessboard.ts";
+import LegalMoveIndicator from "./LegalMoveIndicator.vue";
+import SelectedSquareBorder from "./SelectedSquareBorder.vue";
 
 const store = useChessBoardStore() // Pinia FTW
 

@@ -1,15 +1,14 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <!-- Main content: chessboard -->
             <div class="col-9 py-5">
-                <ChessBoard/>
+                <div class="board-wrapper">
+                    <h3 class="mb-3">Welcome, Rookie!</h3>
+                    <ChessBoard/>
+                </div>
             </div>
-
-            <!-- Sidebar -->
             <div class="col-3 bg-light p-3 border-start" style="min-height: 100vh;">
-                <h5>Game Log</h5>
-                <p>Text here</p>
+                <SideBar/>
             </div>
         </div>
     </div>
@@ -17,4 +16,5 @@
 
 <script setup lang="ts">
 import ChessBoard from "./components/ChessBoard.vue";
+import SideBar from "./components/SideBar.vue";
 </script>
