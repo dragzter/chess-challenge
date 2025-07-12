@@ -1,16 +1,23 @@
 <template>
-    <h5>Game Log</h5>
-    <p class="mb-1 text-info">Turn:
+    <h3 class="mb-3">Game Log</h3>
+    <hr>
+    <h5 class="mb-5">Turn:
         <span class="text-capitalize badge bg-dark">{{ store.turn }}</span>
-    </p>
-    <p class="mb-1 text-info">Moved Pwns: </p>
-    <div class="mb-3 text-list">
-        {{ store.pawnsThatMovedAtLeastOnce.join(", ") }}
-    </div>
-    <p class="mb-1 text-info">Squares Clicked: </p>
-    <div class="text-list mb-3">
-        {{ store.squaresClicked.join(", ") }}
-    </div>
+    </h5>
+
+    <template v-if="store.pawnsThatMovedAtLeastOnce?.length">
+        <p class="mb-1 ">Moved Pwns: </p>
+        <div class="mb-3 text-list">
+            {{ store.pawnsThatMovedAtLeastOnce.join(", ") }}
+        </div>
+    </template>
+
+    <template v-if="store.squaresClicked?.length">
+        <p class="mb-1">Squares Clicked: </p>
+        <div class="text-list mb-3">
+            {{ store.squaresClicked.join(", ") }}
+        </div>
+    </template>
     <hr>
     <p>Moves:</p>
     <div class="moves-list">
