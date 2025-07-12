@@ -5,7 +5,7 @@
             store.isLegalSquare(file + rank), 'capture': store.isCaptureSquare(file + rank)}"
                  class="square text-start p-1 "
                  v-for="file in BoardFile" :key="file"
-                 @click="handleClickSquare(file, rank, store.chessBoard[file + rank])">
+                 @click="handleClickSquare(file, rank, store.chessBoard[file + rank] as Piece)">
                 <p class="lh-1 position-absolute">{{ file }} {{ rank }}</p>
                 <img v-if="store.chessBoard[file + rank]" :class="`img-fluid piece`"
                      draggable="false"
@@ -21,12 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import {nextTick, onMounted} from "vue";
-import {BoardFile, BoardRank} from "../utils/contants.ts";
+import {onMounted} from "vue";
+import {BoardFile, BoardRank, type Piece} from "../utils/contants.ts";
 import {useChessBoardStore} from "../store/chessboard.ts";
 import LegalMoveIndicator from "./LegalMoveIndicator.vue";
 import SelectedSquareBorder from "./SelectedSquareBorder.vue";
-import {Popover} from 'bootstrap/dist/js/bootstrap.esm.js';
 
 const store = useChessBoardStore() // Pinia FTW
 
@@ -34,7 +33,7 @@ const getId = () => {
     return crypto.randomUUID()
 }
 
-const handleClickSquare = async (file, rank, piece) => {
+const handleClickSquare = async (file: string, rank: string, piece: Piece) => {
     let previousSquare = ""
     store.squaresClicked.push(file + rank)
 
@@ -51,6 +50,5 @@ const handleClickSquare = async (file, rank, piece) => {
 
 onMounted(() => {
     store.initChessBoard()
-
 })
 </script>

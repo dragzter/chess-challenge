@@ -11,8 +11,6 @@ import {
 	getMoveType,
 	moveIndicesToBoardCoordinates, moveOrCaptureByPiece,
 } from "../utils/helpers.ts";
-// @ts-ignore
-import {Popover} from "bootstrap/dist/js/bootstrap.esm";
 import type {ChessBoard, ChessPiece} from "./types.ts";
 
 
