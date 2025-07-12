@@ -6,7 +6,6 @@ import {createPinia} from "pinia";
 
 // BS imports
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 const pinia = createPinia()
