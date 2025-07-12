@@ -1,5 +1,5 @@
-import {BoardFile, BoardRank, Pawn} from "./contants.ts";
-import type {PieceInfo} from "../store/types.ts";
+import {BoardFile, BoardRank, type Piece} from "./contants.ts";
+import type {ChessBoard, ChessPiece, PieceInfo} from "../store/types.ts";
 
 export function getRankIndex(val: string) {
 	return BoardRank.findIndex((r) => r === val)
@@ -9,17 +9,30 @@ export function getFileIndex(val: string) {
 	return BoardFile.findIndex((f) => f === val)
 }
 
-export function pieceInfo(player: string, piece: string): PieceInfo {
-	const info = {} as PieceInfo
+export function pieceInfo(player: string, piece: Piece): PieceInfo {
+	const info = {} as PieceInfo;
 	
-	info.color = piece.includes("b") ? "black" : "white"
-	info.friendly = player === info.color
-	info.piece = piece.replace("b_", "").split(".")[0]
+	info.color = piece.color;
+	info.friendly = player === piece.color;
+	info.piece = piece.type;
 	
-	return info
+	return info;
 }
 
-export function performableMoves(moveList: number[][], chessboard: Record<string, string | null>) {
+export function getMoveType(chessPiece: ChessPiece, currentPlayer: string, moveType: string): number[][] {
+	const _moveTypes: Record<string, () => number[][]> = {
+		move: (): number[][] => (currentPlayer === "black" ? chessPiece.alternate_moves : chessPiece.possible_moves) as number[][],
+		capture: (): number[][] => (currentPlayer === "black" ? chessPiece.alternate_capture_moves : chessPiece.capture_moves) as number[][],
+	}
+	
+	return _moveTypes[moveType]()
+}
+
+/**
+ * Provides Board coordinates for the current piece
+ * @param moveList
+ */
+export function moveIndicesToBoardCoordinates(moveList: number[][]) {
 	const openSquares = []
 	for (let i = 0; i < moveList.length; i++) {
 		const move = moveList[i]
@@ -27,30 +40,39 @@ export function performableMoves(moveList: number[][], chessboard: Record<string
 			return index === 0 ? BoardFile[m] : BoardRank[m]
 		}).join("")
 		
-		const squareOnChessBoard = chessboard[square]
-		if (!squareOnChessBoard) {
-			openSquares.push(square)
-		}
+		openSquares.push(square)
 	}
 	return openSquares
 }
 
-export function movesByPiece(piece: string, currentPosition: string) {
+export function canMoveToSquare(board: ChessBoard, availableMoves: string[]) {
+	return availableMoves.filter((m) => {
+		const square = board[m];
+		return !square;
+	});
+}
+
+/**
+ * Provides indices for the x and y arrays
+ * @param piece
+ * @param currentPosition
+ */
+export function moveOrCaptureByPiece(piece: Piece, currentPosition: string, moveListArray: number[][]) {
 	const pieces: Record<string, () => number[][]> = {
 		pawn: () => {
-			const moves = Pawn.possible_moves
-			const actualMoves = []
+			const moveList = moveListArray
+			const moves = []
 			
 			const d = currentPosition.split("").map((coord: string, index: number) => {
 				const arr = index === 0 ? BoardFile : BoardRank
 				return arr.findIndex(v => v === coord)
 			})
 			
-			for (let [x, y] of moves) {
-				actualMoves.push([d[0] + x, d[1] + y])
+			for (let [x, y] of moveList) {
+				moves.push([d[0] + x, d[1] + y])
 			}
 			
-			return actualMoves
+			return moves
 		},
 		knight: () => {
 			return []
@@ -69,6 +91,5 @@ export function movesByPiece(piece: string, currentPosition: string) {
 		},
 	}
 	
-	
-	return pieces[piece]()
+	return pieces[piece.type]()
 }

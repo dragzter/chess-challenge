@@ -72,6 +72,19 @@
 			transform: translate(-50%, -50%);
 			display: block !important;
 		}
+		
+		
+		&.capture {
+			.legal-move-indicator {
+				display: none !important;
+			}
+			
+			.hover-border {
+				display: block !important;
+				border-color: red;
+			}
+		}
+		
 	}
 }
 
@@ -81,5 +94,16 @@
 	top: 0;
 	left: 0;
 	position: absolute;
+}
+
+.moves-list {
+	overflow-y: auto;
+	max-height: 60vh;
+}
+
+.text-list {
+	max-height: 50px;
+	height: 100%;
+	overflow: auto;
 }
 

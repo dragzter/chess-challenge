@@ -83,77 +83,99 @@ export const Pieces = {
  * Rook: [1, 0], [-1, 0], [0, 1], [0, -1] (repeat)
  */
 
-export const Knight: ChessPiece = {
+const Knight: ChessPiece = {
 	possible_moves: [[2, 1], [2, -1], [1, 2], [-1, 2], [1, -2], [-1, -2], [-2, -1], [-2, 1]],
 	name: "Knight",
 	id: "knight"
 }
 
-export const Pawn: ChessPiece = {
+const Pawn: ChessPiece = {
 	possible_moves: [[0, 1], [0, 2]],
 	alternate_moves: [[0, -1], [0, -2]],
+	capture_moves: [[1, 1], [-1, 1]],
+	alternate_capture_moves: [[1, -1], [-1, -1]],
 	name: "Pawn",
 	id: "pawn"
 }
 
-export const Bishop: ChessPiece = {
+const Bishop: ChessPiece = {
 	possible_moves: [[1, 1], [1, -1], [-1, 1], [-1, -1]],
 	name: "Bishop",
 	id: "bishop"
 }
 
-export const Rook: ChessPiece = {
+const Rook: ChessPiece = {
 	possible_moves: [[1, 0], [-1, 0], [0, 1], [0, -1]],
 	name: "Rook",
 	id: "rook"
 }
 
-export const Queen: ChessPiece = {
+const Queen: ChessPiece = {
 	possible_moves: [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]],
 	name: "Queen",
 	id: "queen"
 }
 
-export const King: ChessPiece = {
+const King: ChessPiece = {
 	possible_moves: [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]],
 	name: "King",
 	id: "king"
 }
 
+export function getPieceDefinition(pieceName: string) {
+	return {
+		pawn: Pawn,
+		rook: Rook,
+		knight: Knight,
+		king: King,
+		queen: Queen,
+		bishop: Bishop
+	}[pieceName]
+}
+
 // This is the starting state of the board
-export const StartGamePieceState: Record<string, string> = {
-	a2: Pieces.white.pawn,
-	b2: Pieces.white.pawn,
-	c2: Pieces.white.pawn,
-	d2: Pieces.white.pawn,
-	e2: Pieces.white.pawn,
-	f2: Pieces.white.pawn,
-	g2: Pieces.white.pawn,
-	h2: Pieces.white.pawn,
-	a1: Pieces.white.rook,
-	b1: Pieces.white.knight,
-	c1: Pieces.white.bishop,
-	d1: Pieces.white.queen,
-	e1: Pieces.white.king,
-	f1: Pieces.white.bishop,
-	g1: Pieces.white.knight,
-	h1: Pieces.white.rook,
-	a7: Pieces.black.pawn,
-	b7: Pieces.black.pawn,
-	c7: Pieces.black.pawn,
-	d7: Pieces.black.pawn,
-	e7: Pieces.black.pawn,
-	f7: Pieces.black.pawn,
-	g7: Pieces.black.pawn,
-	h7: Pieces.black.pawn,
-	a8: Pieces.black.rook,
-	b8: Pieces.black.knight,
-	c8: Pieces.black.bishop,
-	d8: Pieces.black.queen,
-	e8: Pieces.black.king,
-	f8: Pieces.black.bishop,
-	g8: Pieces.black.knight,
-	h8: Pieces.black.rook,
+export type Piece = {
+	id: string;
+	type: string;
+	color: 'white' | 'black';
+	image: string;
 };
 
+export const StartGamePieceState: Record<string, Piece> = {
+	a2: {id: 'wp-a2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	b2: {id: 'wp-b2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	c2: {id: 'wp-c2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	d2: {id: 'wp-d2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	e2: {id: 'wp-e2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	f2: {id: 'wp-f2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	g2: {id: 'wp-g2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	h2: {id: 'wp-h2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	
+	a1: {id: 'wr-a1', type: 'rook', color: 'white', image: Pieces.white.rook},
+	b1: {id: 'wn-b1', type: 'knight', color: 'white', image: Pieces.white.knight},
+	c1: {id: 'wb-c1', type: 'bishop', color: 'white', image: Pieces.white.bishop},
+	d1: {id: 'wq-d1', type: 'queen', color: 'white', image: Pieces.white.queen},
+	e1: {id: 'wk-e1', type: 'king', color: 'white', image: Pieces.white.king},
+	f1: {id: 'wb-f1', type: 'bishop', color: 'white', image: Pieces.white.bishop},
+	g1: {id: 'wn-g1', type: 'knight', color: 'white', image: Pieces.white.knight},
+	h1: {id: 'wr-h1', type: 'rook', color: 'white', image: Pieces.white.rook},
+	
+	a7: {id: 'bp-a7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	b7: {id: 'bp-b7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	c7: {id: 'bp-c7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	d7: {id: 'bp-d7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	e7: {id: 'bp-e7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	f7: {id: 'bp-f7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	g7: {id: 'bp-g7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	h7: {id: 'bp-h7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	
+	a8: {id: 'br-a8', type: 'rook', color: 'black', image: Pieces.black.rook},
+	b8: {id: 'bn-b8', type: 'knight', color: 'black', image: Pieces.black.knight},
+	c8: {id: 'bb-c8', type: 'bishop', color: 'black', image: Pieces.black.bishop},
+	d8: {id: 'bq-d8', type: 'queen', color: 'black', image: Pieces.black.queen},
+	e8: {id: 'bk-e8', type: 'king', color: 'black', image: Pieces.black.king},
+	f8: {id: 'bb-f8', type: 'bishop', color: 'black', image: Pieces.black.bishop},
+	g8: {id: 'bn-g8', type: 'knight', color: 'black', image: Pieces.black.knight},
+	h8: {id: 'br-h8', type: 'rook', color: 'black', image: Pieces.black.rook},
+};
 

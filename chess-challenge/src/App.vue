@@ -12,6 +12,8 @@
             </div>
         </div>
     </div>
+    <audio ref="moveSound" src="/sound/move.wav" preload="auto"></audio>
+
 </template>
 
 <script setup lang="ts">
