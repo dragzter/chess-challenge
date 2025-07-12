@@ -26,7 +26,6 @@ export const useChessBoardStore = defineStore("chessBoard", {
 		startingPositions: JSON.parse(JSON.stringify(StartGamePieceState)),
 		chessBoard: {} as ChessBoard,
 		selectedSquare: "",
-		pawnsThatMovedAtLeastOnce: [] as string[],
 		selectedPieceLegalSquares: {
 			moves: [],
 			captures: []
@@ -70,14 +69,12 @@ export const useChessBoardStore = defineStore("chessBoard", {
 			this.selectedPieceLegalSquares.moves = moveIndicesToBoardCoordinates(availableMoveIndices)
 			
 			if (piece.type === "pawn") {
-				const hasMoved = this.pawnsThatMovedAtLeastOnce.includes(piece.id)
-				this.selectedPieceLegalSquares.moves = hasMoved ? [this.selectedPieceLegalSquares.moves[0]] : this.selectedPieceLegalSquares.moves
+				this.selectedPieceLegalSquares.moves = !!piece.moves.length ? [this.selectedPieceLegalSquares.moves[0]] : this.selectedPieceLegalSquares.moves
 			}
 			
 			const captureIndices = moveOrCaptureByPiece(piece, currentPosition, captures)
 			const captureCoords = moveIndicesToBoardCoordinates(captureIndices)
 			
-			console.log(captureCoords, "captures coords")
 			captureCoords.map((co) => {
 				const pieceInCoordinate = this.chessBoard[co]
 				if (pieceInCoordinate && pieceInCoordinate.color !== this.currentPlayer) {
@@ -103,9 +100,9 @@ export const useChessBoardStore = defineStore("chessBoard", {
 			
 			if (thisPiece.color !== this.currentPlayer) return
 			
-			if (thisPiece.type === "pawn" && !this.pawnsThatMovedAtLeastOnce.includes(this.chessBoard[from].id)) {
-				this.pawnsThatMovedAtLeastOnce.push(this.chessBoard[from].id)
-			}
+			thisPiece.moves.push(to)
+			
+			console.log(thisPiece)
 			
 			this.moveSound.play()
 			

@@ -139,43 +139,140 @@ export type Piece = {
 	type: string;
 	color: 'white' | 'black';
 	image: string;
+	moves: string[] // store moves as board coordinates d3, e2 etc
 };
 
 export const StartGamePieceState: Record<string, Piece> = {
-	a2: {id: 'wp-a2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
-	b2: {id: 'wp-b2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
-	c2: {id: 'wp-c2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
-	d2: {id: 'wp-d2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
-	e2: {id: 'wp-e2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
-	f2: {id: 'wp-f2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
-	g2: {id: 'wp-g2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
-	h2: {id: 'wp-h2', type: 'pawn', color: 'white', image: Pieces.white.pawn},
+	a2: {
+		id: 'wp-a2', type: 'pawn', color: 'white', image: Pieces.white.pawn,
+		moves: []
+	},
+	b2: {
+		id: 'wp-b2', type: 'pawn', color: 'white', image: Pieces.white.pawn,
+		moves: []
+	},
+	c2: {
+		id: 'wp-c2', type: 'pawn', color: 'white', image: Pieces.white.pawn,
+		moves: []
+	},
+	d2: {
+		id: 'wp-d2', type: 'pawn', color: 'white', image: Pieces.white.pawn,
+		moves: []
+	},
+	e2: {
+		id: 'wp-e2', type: 'pawn', color: 'white', image: Pieces.white.pawn,
+		moves: []
+	},
+	f2: {
+		id: 'wp-f2', type: 'pawn', color: 'white', image: Pieces.white.pawn,
+		moves: []
+	},
+	g2: {
+		id: 'wp-g2', type: 'pawn', color: 'white', image: Pieces.white.pawn,
+		moves: []
+	},
+	h2: {
+		id: 'wp-h2', type: 'pawn', color: 'white', image: Pieces.white.pawn,
+		moves: []
+	},
 	
-	a1: {id: 'wr-a1', type: 'rook', color: 'white', image: Pieces.white.rook},
-	b1: {id: 'wn-b1', type: 'knight', color: 'white', image: Pieces.white.knight},
-	c1: {id: 'wb-c1', type: 'bishop', color: 'white', image: Pieces.white.bishop},
-	d1: {id: 'wq-d1', type: 'queen', color: 'white', image: Pieces.white.queen},
-	e1: {id: 'wk-e1', type: 'king', color: 'white', image: Pieces.white.king},
-	f1: {id: 'wb-f1', type: 'bishop', color: 'white', image: Pieces.white.bishop},
-	g1: {id: 'wn-g1', type: 'knight', color: 'white', image: Pieces.white.knight},
-	h1: {id: 'wr-h1', type: 'rook', color: 'white', image: Pieces.white.rook},
+	a1: {
+		id: 'wr-a1', type: 'rook', color: 'white', image: Pieces.white.rook,
+		moves: []
+	},
+	b1: {
+		id: 'wn-b1', type: 'knight', color: 'white', image: Pieces.white.knight,
+		moves: []
+	},
+	c1: {
+		id: 'wb-c1', type: 'bishop', color: 'white', image: Pieces.white.bishop,
+		moves: []
+	},
+	d1: {
+		id: 'wq-d1', type: 'queen', color: 'white', image: Pieces.white.queen,
+		moves: []
+	},
+	e1: {
+		id: 'wk-e1', type: 'king', color: 'white', image: Pieces.white.king,
+		moves: []
+	},
+	f1: {
+		id: 'wb-f1', type: 'bishop', color: 'white', image: Pieces.white.bishop,
+		moves: []
+	},
+	g1: {
+		id: 'wn-g1', type: 'knight', color: 'white', image: Pieces.white.knight,
+		moves: []
+	},
+	h1: {
+		id: 'wr-h1', type: 'rook', color: 'white', image: Pieces.white.rook,
+		moves: []
+	},
 	
-	a7: {id: 'bp-a7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
-	b7: {id: 'bp-b7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
-	c7: {id: 'bp-c7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
-	d7: {id: 'bp-d7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
-	e7: {id: 'bp-e7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
-	f7: {id: 'bp-f7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
-	g7: {id: 'bp-g7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
-	h7: {id: 'bp-h7', type: 'pawn', color: 'black', image: Pieces.black.pawn},
+	a7: {
+		id: 'bp-a7', type: 'pawn', color: 'black', image: Pieces.black.pawn,
+		moves: []
+	},
+	b7: {
+		id: 'bp-b7', type: 'pawn', color: 'black', image: Pieces.black.pawn,
+		moves: []
+	},
+	c7: {
+		id: 'bp-c7', type: 'pawn', color: 'black', image: Pieces.black.pawn,
+		moves: []
+	},
+	d7: {
+		id: 'bp-d7', type: 'pawn', color: 'black', image: Pieces.black.pawn,
+		moves: []
+	},
+	e7: {
+		id: 'bp-e7', type: 'pawn', color: 'black', image: Pieces.black.pawn,
+		moves: []
+	},
+	f7: {
+		id: 'bp-f7', type: 'pawn', color: 'black', image: Pieces.black.pawn,
+		moves: []
+	},
+	g7: {
+		id: 'bp-g7', type: 'pawn', color: 'black', image: Pieces.black.pawn,
+		moves: []
+	},
+	h7: {
+		id: 'bp-h7', type: 'pawn', color: 'black', image: Pieces.black.pawn,
+		moves: []
+	},
 	
-	a8: {id: 'br-a8', type: 'rook', color: 'black', image: Pieces.black.rook},
-	b8: {id: 'bn-b8', type: 'knight', color: 'black', image: Pieces.black.knight},
-	c8: {id: 'bb-c8', type: 'bishop', color: 'black', image: Pieces.black.bishop},
-	d8: {id: 'bq-d8', type: 'queen', color: 'black', image: Pieces.black.queen},
-	e8: {id: 'bk-e8', type: 'king', color: 'black', image: Pieces.black.king},
-	f8: {id: 'bb-f8', type: 'bishop', color: 'black', image: Pieces.black.bishop},
-	g8: {id: 'bn-g8', type: 'knight', color: 'black', image: Pieces.black.knight},
-	h8: {id: 'br-h8', type: 'rook', color: 'black', image: Pieces.black.rook},
+	a8: {
+		id: 'br-a8', type: 'rook', color: 'black', image: Pieces.black.rook,
+		moves: []
+	},
+	b8: {
+		id: 'bn-b8', type: 'knight', color: 'black', image: Pieces.black.knight,
+		moves: []
+	},
+	c8: {
+		id: 'bb-c8', type: 'bishop', color: 'black', image: Pieces.black.bishop,
+		moves: []
+	},
+	d8: {
+		id: 'bq-d8', type: 'queen', color: 'black', image: Pieces.black.queen,
+		moves: []
+	},
+	e8: {
+		id: 'bk-e8', type: 'king', color: 'black', image: Pieces.black.king,
+		moves: []
+	},
+	f8: {
+		id: 'bb-f8', type: 'bishop', color: 'black', image: Pieces.black.bishop,
+		moves: []
+	},
+	g8: {
+		id: 'bn-g8', type: 'knight', color: 'black', image: Pieces.black.knight,
+		moves: []
+	},
+	h8: {
+		id: 'br-h8', type: 'rook', color: 'black', image: Pieces.black.rook,
+		moves: []
+	},
 };
 

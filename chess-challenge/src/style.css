@@ -1,6 +1,6 @@
-.board-wrapper {
-	max-width: 800px;
-	max-height: 800px;
+.board-wrapper, .title-row {
+	max-width: 700px;
+	max-height: 700px;
 	margin: auto;
 }
 
